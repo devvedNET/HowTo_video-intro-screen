@@ -1,9 +1,9 @@
-<!-- main repo image -->
-
+![Video intro screen preview](https://github.com/devvedNET/blog-assets/blob/master/images/video-intro-screen.png?raw=true)
 # This React app will be used to create animated video intro screens and featured image thumbnails for devved.net content
 
-### Project Specs & Requirements
+**This app is not intended for use in production. The purpose of this app being in a public repo is strictly for learning purposes.**
 
+### Project Specs & Requirements
   - Must produce a consistent brand identity for devved content
     - Code Golf Series
     - Deep Dive Series
@@ -11,6 +11,10 @@
   - All content must be presentable in (HD) high definition 
   - Content generator should be very easy to use 
   - Easily add language tags to the images
+
+### Tutorial Links 
+  - How To Article: TODO: Add article url
+  - Video: TODO: Add video url
 
 
 <br />
