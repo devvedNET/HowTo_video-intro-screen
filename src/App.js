@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.png';
 import './App.css';
+import Preview from './components/Preview';
+import Header from './components/Header';
 
 class App extends Component {
   constructor(props){
@@ -21,12 +23,21 @@ class App extends Component {
                     'rxjs',
                     'node'];
     this.devvedBrandSeriesNames = ['Code Golf Series','Deep Dive Series', 'How To Series'];
+    this.targetPlatforms = ['Devved', 'YouTube'];
 
     this.state = {
-      mainTitle: 'Learn the Latest JavaScript Features in ECMAScript 2016-2018',
+      mainTitle: 'The Latest JavaScript Features in ECMAScript 2016, 2017, and 2018',
+      mainTitleSlug: 'the-latest-javascript-features-in-ecmascript-2016-2017-and-2018.png',
+      platform: 'Devved',
       bgImageUrl: 'https://packagecontrol.io/readmes/img/0638df31ab995ceb9302368b2700cfb012c22b7b.png',
+      bgImageOpacity: 0.5,
+      bgImageWrapperPosition: '0 0 0 0',
+      bgImagePosition: '0 0',
+      bgImageScale: '1.0',
+      bgImageSkew: '0deg',
+      bgImageRotate: '0deg',
       devvedBrandSeries: 'DeepDiveSeries',
-      iconTags: []
+      iconTags: ['javascript']
     };
   }
   
@@ -38,12 +49,21 @@ class App extends Component {
         this.setState({[targetName]: event.target.value});
         break;
       case 'iconTags':
-        if(event.target.checked) {
-          this.setState({[targetName]: this.state.iconTags.concat(event.target.value).sort() });
-        } else {
-          const delItemIdx = this.state.iconTags.indexOf(event.target.value);
-          this.setState({[targetName]: this.state.iconTags.filter((_, i) => i !== delItemIdx).sort() });
-        }
+      if(event.target.checked) {
+        this.setState({[targetName]: this.state.iconTags.concat(event.target.value).sort() });
+      } else {
+        const delItemIdx = this.state.iconTags.indexOf(event.target.value);
+        this.setState({[targetName]: this.state.iconTags.filter((_, i) => i !== delItemIdx).sort() });
+      }
+      break;
+      case 'mainTitle':
+        this.setState({[targetName]: event.target.value});
+        this.setState({mainTitleSlug: event.target.value
+                       .replace(/\W+/g, ' ')
+                       .split(' ')
+                       .join('-')
+                       .toLowerCase()
+                       .trim() + '.png'});
         break;
       default:
         this.setState({[targetName]: event.target.value});
@@ -51,38 +71,104 @@ class App extends Component {
     }
   }
 
-  onSaveImage() {
-    console.log('save img...');
+  handleCopy() {
+    const copyToClipboard = (() => {
+      let textField = document.createElement('textarea');
+      textField.innerText = this.state.mainTitleSlug;
+      document.body.appendChild(textField);
+      textField.select();
+      document.execCommand('copy');
+      textField.remove();
+    })();
   }
 
   render() {
     return (
       <div className='App'>
-        <div className="Header">
-          <img src={logo} className="logo" alt='devved.net logo' />
-          <h1>Video Intro &amp; Thumbnail Generator
-            <small>exclusively for the devved.net blog</small>
-          </h1>
-        </div>
+        <Header />
 
         <div className="GeneratorForm">
-          
           <input type="text"
                  name="mainTitle"
                  onChange={evt => this.handleChange(evt)}
                  value={this.state.mainTitle} />
-          
-          <h3>Enter URL of background image</h3>
+          <div>
+            <b>filename:</b> 
+            <span style={{marginLeft: '10px'}}>{this.state.mainTitleSlug}</span>
+            <button onClick={this.handleCopy.bind(this)}
+              style={{marginLeft: '10px'}}>copy</button>
+          </div>
+
+          <h3>Background image</h3>
+          <h4>Image URL</h4>
           <input type="text"
                  name="bgImageUrl"
                  onChange={evt => this.handleChange(evt)}
                  value={this.state.bgImageUrl} />
 
+          <div className="OptionGroup">
+            <div className="Set">
+              <h4>Opacity</h4>
+              <input type="text"
+                    name="bgImageOpacity"
+                    onChange={evt => this.handleChange(evt)}
+                    value={this.state.bgImageOpacity} />
+            </div>
 
-          <h3>Choose proper output format</h3>
-          {['a', 'b'].map(format => (
-            <div className="SelectOption" key={format}>{format}</div>
-          ))}
+            <div className="Set">
+              <h4>Wrapper Position</h4>
+              <input type="text"
+                    name="bgImageWrapperPosition"
+                    onChange={evt => this.handleChange(evt)}
+                    value={this.state.bgImageWrapperPosition} />
+            </div>
+
+            <div className="Set">
+              <h4>Background Position</h4>
+              <input type="text"
+                    name="bgImagePosition"
+                    onChange={evt => this.handleChange(evt)}
+                    value={this.state.bgImagePosition} />
+            </div>
+
+            <div className="Set">
+              <h4>Scale</h4>
+              <input type="text"
+                    name="bgImageScale"
+                    onChange={evt => this.handleChange(evt)}
+                    value={this.state.bgImageScale} />
+            </div>
+
+            <div className="Set">
+              <h4>Skew</h4>
+              <input type="text"
+                    name="bgImageSkew"
+                    onChange={evt => this.handleChange(evt)}
+                    value={this.state.bgImageSkew} />
+            </div>
+
+            <div className="Set">
+              <h4>Rotate</h4>
+              <input type="text"
+                    name="bgImageRotate"
+                    onChange={evt => this.handleChange(evt)}
+                    value={this.state.bgImageRotate} />
+            </div>
+          </div>
+
+
+          <h3>Design template based on target platform</h3>
+          {this.targetPlatforms.map(platform => {
+            return <div className="SelectOption" key={platform}>
+            <input name="platform" 
+              type="radio"
+              value={platform}
+              checked={this.state.platform === platform}
+              onChange={evt => this.handleChange(evt)} /> 
+              {platform}
+            </div>
+            })
+          }
 
           <h3>Choose the appropriate series</h3>
           {this.devvedBrandSeriesNames.map(seriesName => {
@@ -112,33 +198,42 @@ class App extends Component {
             ))
           }
 
+          <h3>Process images for production</h3>
+          {this.state.platform === "Devved" && <span>
+            <div className="ProcessingCode">
+            cd ~/Desktop/devvedNET-root/blog-assets && convert featured-images/{this.state.mainTitleSlug} -trim featured-images/{this.state.mainTitleSlug.replace('.png', '-devved.png')} && convert featured-images/{this.state.mainTitleSlug.replace('.png', '-devved.png')} -resize 480 featured-images/{this.state.mainTitleSlug.replace('.png', '-thumbnail-devved.png')} && rm -rf featured-images/{this.state.mainTitleSlug} && rm -rf featured-images/{this.state.mainTitleSlug.replace('.png', '-devved.png')} && ruby ~/Desktop/devvedNET-root/tutorials/video-intro-screen/tinypng_image_optimize.rb "{this.state.mainTitleSlug.replace('.png', '-thumbnail-devved.png')}"
+            </div>
+          </span>
+          }
+          {this.state.platform === "YouTube" && <span>
+            <div className="ProcessingCode">
+            cd ~/Desktop/devvedNET-root/blog-assets && convert featured-images/{this.state.mainTitleSlug} -trim featured-images/{this.state.mainTitleSlug.replace('.png', '-devved-YouTube.png')} && rm -rf featured-images/{this.state.mainTitleSlug}
+            </div>
+          </span>
+          }
+
+          {/*  
           <button onClick={this.onSaveImage.bind(this)}>
             Save Image
           </button>
+          */}
         </div>
   
+        {/* Preview Generated Image */}
         <br />
-
-        <div className="MainContainer Preview">
-          <div className="BgImage" 
-               style={{backgroundImage: `url(${this.state.bgImageUrl})`}}></div>
-          
-          <div className="MainTitle">
-            <h1><span>{this.state.mainTitle}</span></h1>
-          </div>
-          
-          {this.state.iconTags.length > 0 && 
-          <div className="IconTags">
-            {this.state.iconTags.map((tag,i) => <div className={'Tag lang lang-' + tag} key={i}></div> )}
-          </div>
-          }
-
-          <div className="DevvedBrand"
-               style={{backgroundImage: `url(${logo})`}}></div>
-
-          <div className={'DevvedBrandSeries ' + this.state.devvedBrandSeries}></div>
-        </div>
-
+        <Preview
+          mainTitle={this.state.mainTitle}
+          platform={this.state.platform}
+          bgImageUrl={this.state.bgImageUrl}
+          bgImageOpacity={this.state.bgImageOpacity}
+          bgImageWrapperPosition={this.state.bgImageWrapperPosition}
+          bgImagePosition={this.state.bgImagePosition}
+          bgImageScale={this.state.bgImageScale}
+          bgImageSkew={this.state.bgImageSkew}
+          bgImageRotate={this.state.bgImageRotate}
+          devvedBrandSeries={this.state.devvedBrandSeries}
+          iconTags={this.state.iconTags}
+          />
       </div>
     );
   }

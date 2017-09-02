@@ -1,0 +1,124 @@
+::selection {
+    background: rgba(251, 214, 0, 0.92);
+    color: #333;
+}
+
+.MainContainer {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    background: black;
+    overflow: hidden !important;
+}
+
+.MainContainer.Preview {
+    transform: scale(0.5);
+    transform-origin: 0 0;
+}
+
+.MainContainer .BgImage {
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transform: skew(4deg);
+    transform: scale(1.2);
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    z-index: 0;
+}
+
+.MainContainer .MainTitle {
+    position: absolute;
+    max-width: 90%;
+    transform: skew(-4deg);
+    margin: 1.5rem 0 0 0.33rem;
+    z-index: 2;
+}
+
+.MainContainer .MainTitle h1 {
+    font-size: 7.5rem;
+    padding: 4.5rem 6rem;
+    color: #fff;
+    text-shadow: 1px 0px 1px #888, 0px 1px 1px #bbb, 2px 1px 1px #888, 1px 2px 1px #bbb, 3px 2px 1px #888, 2px 3px 1px #bbb, 4px 3px 1px #888, 3px 4px 1px #bbb, 5px 4px 1px #888, 4px 5px 1px #bbb, 6px 5px 1px #888, 5px 6px 1px #bbb, 7px 6px 1px #888;
+    line-height: 10rem;
+    background: rgba(34, 34, 34, 0.40);
+    transform: rotate(-4deg);
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+}
+
+.MainContainer .MainTitle h1 span {
+    background: rgba(34, 34, 34, 0.80);
+}
+
+.MainContainer .IconTags {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    padding: 10px 10px 6.5px 10px;
+    background: rgba(34, 34, 34, 0.80);
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    z-index: 2;
+}
+
+.MainContainer .IconTags .Tag {
+    display: inline-block;
+    margin-left: 15px;
+    width: 64px;
+    height: 64px;
+    border: 2px solid rgba(255, 255, 255, 0.025);
+    border-radius: 3px;
+}
+
+.MainContainer .DevvedBrand {
+    position: absolute;
+    background-size: cover;
+    width: 128px;
+    height: 128px;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.MainContainer .DevvedBrand::before {
+    position: absolute;
+    content: 'devved.net';
+    text-shadow: 1px 0px 1px #888, 0px 1px 1px #bbb, 2px 1px 1px #888, 1px 2px 1px #bbb, 3px 2px 1px #888, 2px 3px 1px #bbb;
+    color: #fff;
+    font-size: 6.7rem;
+    left: -34.5rem;
+}
+
+.MainContainer .DevvedBrandSeries {
+    position: absolute;
+    width: calc(100% - 150px);
+    height: calc(100% - 150px);
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.MainContainer .DevvedBrandSeries.CodeGolfSeries {
+    border: 75px solid #BC18B7;
+    background: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0) 0%, rgba(188, 24, 183, 1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0) 0%, rgba(188, 24, 183, 1) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(188, 24, 183, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#bc18b7', GradientType=1);
+}
+
+.MainContainer .DevvedBrandSeries.DeepDiveSeries {
+    border: 75px solid #24A57C;
+    background: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0) 0%, rgba(36, 165, 124, 1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0) 0%, rgba(36, 165, 124, 1) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(36, 165, 124, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#24a57c', GradientType=1);
+}
+
+.MainContainer .DevvedBrandSeries.HowToSeries {
+    border: 75px solid #2727A9;
+    background: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0) 0%, rgba(39, 39, 169, 1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0) 0%, rgba(39, 39, 169, 1) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(39, 39, 169, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#2727a9', GradientType=1);
+}
