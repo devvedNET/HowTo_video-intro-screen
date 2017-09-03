@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import logo from './logo.png';
 import './App.css';
 import Preview from './components/Preview';
@@ -7,21 +8,8 @@ import Header from './components/Header';
 class App extends Component {
   constructor(props){
     super(props);
-    this.langTags = ['python',
-                    'angular',
-                    'php',
-                    'ruby',
-                    'wordpress',
-                    'css',
-                    'docker',
-                    'html',
-                    'typescript',
-                    'vue',
-                    'javascript',
-                    'react',
-                    'redux',
-                    'rxjs',
-                    'node'];
+
+    this.langTags = [];
     this.devvedBrandSeriesNames = ['Code Golf Series','Deep Dive Series', 'How To Series'];
     this.targetPlatforms = ['Devved', 'YouTube'];
 
@@ -37,10 +25,23 @@ class App extends Component {
       bgImageSkew: '0deg',
       bgImageRotate: '0deg',
       devvedBrandSeries: 'DeepDiveSeries',
-      iconTags: ['javascript']
+      iconTags: ['javascript'],
     };
   }
   
+  componentDidMount() {
+    this.loadLangTags();
+  }
+
+  loadLangTags() {
+    const css = `https://raw.githubusercontent.com/devvedNET/blog-assets/master/images/lang/devved-lang.css`;
+    axios.get(css).then((res) => {
+      const tags = res.data.match(/\.lang-\w*[-]?.*\b/g).map(tag => tag.replace('.lang-',''));
+      this.langTags = tags;
+      this.forceUpdate();
+    });
+  }
+
   handleChange(event, targetName = event.target.name) {
     if(!targetName) throw new Error(`Input is required to have a "name" prop to mapToState`);
 
