@@ -14,7 +14,7 @@ class App extends Component {
     this.targetPlatforms = ['Devved', 'YouTube'];
 
     this.state = {
-      mainTitle: 'The Latest JavaScript Features in ECMAScript 2016, 2017, and 2018',
+      mainTitle: '<mark>The Latest JavaScript Features</mark> in ECMAScript 2016, 2017, and 2018',
       mainTitleSlug: 'the-latest-javascript-features-in-ecmascript-2016-2017-and-2018.png',
       platform: 'Devved',
       bgImageUrl: 'https://packagecontrol.io/readmes/img/0638df31ab995ceb9302368b2700cfb012c22b7b.png',
@@ -36,7 +36,7 @@ class App extends Component {
   loadLangTags() {
     const css = `https://raw.githubusercontent.com/devvedNET/blog-assets/master/images/lang/devved-lang.css`;
     axios.get(css).then((res) => {
-      const tags = res.data.match(/\.lang-\w*[-]?.*\b/g).map(tag => tag.replace('.lang-',''));
+      const tags = res.data.match(/\.lang-\w*[-]?.*\b/g).map(tag => tag.replace('.lang-','')).sort();
       this.langTags = tags;
       this.forceUpdate();
     });
@@ -60,6 +60,8 @@ class App extends Component {
       case 'mainTitle':
         this.setState({[targetName]: event.target.value});
         this.setState({mainTitleSlug: event.target.value
+                       .replace(/\<mark\>|\<m\>/g, '')
+                       .replace(/\<\/mark\>|\<\/m\>/g, '')
                        .replace(/\W+/g, ' ')
                        .split(' ')
                        .join('-')

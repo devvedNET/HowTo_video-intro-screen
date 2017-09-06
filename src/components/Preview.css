@@ -1,6 +1,7 @@
-::selection {
+m, mark, ::selection {
     background: rgba(251, 214, 0, 0.92);
     color: #333;
+    padding: 0 1rem 0 0;
 }
 
 .MainContainer {

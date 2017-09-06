@@ -47,7 +47,7 @@ class Preview extends Component {
                style={this.handleBgImageStyle()}></div>
           
           <div className="MainTitle">
-            <h1><span>{this.props.mainTitle}</span></h1>
+            <h1><span dangerouslySetInnerHTML={{__html: this.props.mainTitle}} /></h1>
           </div>
           
           {(this.props.platform !== 'Devved' && (this.props.iconTags.length > 0)) && 
